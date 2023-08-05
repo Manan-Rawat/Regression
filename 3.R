@@ -1,0 +1,27 @@
+library(Fgmutils)
+X3 <- read.delim("https://gattonweb.uky.edu/sheather/book/docs/datasets/invoices.txt")
+x <- X3$Invoices
+y <- X3$Time
+n <- length(x)
+xm <- mean(x)
+ym <- mean(y)
+SXX <- sum((x-xm)^2)
+SXY <- sum((x-xm)*(y-ym))
+b1 <- SXY/SXX
+b0 <- ym - xm*b1
+r <- (y - xm*b1 - b0)
+RSS <- sum(r*r)
+S <- sqrt(RSS^2)/(n-2)
+l <- sqrt((1/n)+(xm*xm)/(SXX))
+q <- qt(0.975,n-2)
+print (b1)
+print (b1-(S*l*q))
+print (b1+(S*l*q))
+l1 <- sqrt((1)+(1/n)+(((130-xm)^2)/SXX))
+print (b1*130 + b0 - S*q*l1)
+print (b1*130 + b0)
+print (b1*130 + b0 + S*q*l1)
+se1 <- S/sqrt(SXX)
+t <- (b1-0.01)/(se1)
+p = 2*pt(q=t, df=length(x)-2, lower.tail=FALSE)
+print (p)

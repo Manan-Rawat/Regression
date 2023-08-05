@@ -1,0 +1,5 @@
+r <- runif(1000000)
+p <- -log(1-r)
+print (p)
+print (mean(p))
+print (var(p))

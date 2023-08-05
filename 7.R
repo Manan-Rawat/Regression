@@ -1,0 +1,68 @@
+data <- read.delim("https://gattonweb.uky.edu/sheather/book/docs/datasets/cleaning.txt")
+x <- data$Crews
+y <- data$Rooms
+xm <- mean(x)
+ym <- mean(y)
+SXX <- sum((x-xm)^2)
+SXY <- sum((x-xm)*(y-ym))
+b1 <- SXY/SXX
+b0 <- ym - b1*xm
+z <- seq(0,20,0.001)
+y1 <- b0 + (b1*z)
+plot(x,y)
+lines(z,y1,type="l")
+a <- seq(4,16,12)
+e <- ( y - b1*x -b0 )
+S <- sqrt(sum(e*e)/(51))
+t <- qt(0.975,51)
+h <- ((a - xm)^2)/SXX
+h1 <- sqrt((54/53)+h)
+print (b0+(b1*a)+(S*t*h1))
+print (b0+(b1*a)-(S*t*h1))
+print (b0+(b1*a))
+l <- (1/53)+((x-xm)^2)/(sum((x-xm)^2))
+r <- e/(S*sqrt(1-l))
+plot(x,r)
+y1 <- sqrt(abs(e))
+y2 <- sqrt(abs(r))
+plot(x,y1)
+plot(x,y2)
+y2m=mean(y2)
+SXY1 <- sum((x-xm)*(y2-y2m))
+b11 <- SXY1/SXX
+b10 <- y2m - b11*xm
+g <- seq(0,18,0.01)
+s <- b11*g + b10
+plot(x,y2)
+lines(g,s,type="l")
+plot(b0+b1*x,e)
+qqnorm(sr)
+qqline(sr,col='blue')
+plot(b0+b1*x,y2)
+plot(l,r)
+plot(sqrt(x),sqrt(y))
+ax <- sqrt(x)
+ay <- sqrt(y)
+amx <- mean(ax)
+amy <- mean(ay)
+SXXa <- sum((ax-amx)*(ax-amx))
+SYXa <- sum((ay-amy)*(ax-amx))
+ba1 <- SYXa/SXXa
+ba0 <- amy - ba1*amx
+z1 <- seq(0,4.5,0.001)
+plot(ax,ay)
+lines(z1, ba0+ba1*z1)
+plot(ax,r)
+e1 <- ay - ba0 - ba1*ax
+plot(ax,e1)
+l1 <- (1/53)+((ax-amx)^2)/(sum((ax-amx)^2))
+Sa <- sqrt((sum((ay-ba0-ba1*ax)^2)/(51)))
+sra <- e1/(Sa*sqrt(1-l1))
+plot(ax, abs(sra))
+plot(l1,sra)
+ta <- qt(0.975,51)
+ha <- ((sqrt(a) - amx)^2)/SXXa
+ha1 <- sqrt((54/53)+ha)
+print ((ba0+ba1*sqrt(a) - (ha1*ta*Sa))^2)
+print ((ba0+ba1*sqrt(a) + (ha1*ta*Sa))^2)
+print (ba0+ba1*sqrt(a))

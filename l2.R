@@ -1,0 +1,7 @@
+r <- seq(-50,50,0.1)
+x <- rnorm(length(r),0,100)
+z <- rnorm(length(r),0,100)
+y <- r+(x/z)
+plot(r,y)
+hist(x/z)
+hist(x)
